@@ -31,7 +31,7 @@ Cypress.Commands.add('searchFligths',(from, to, date, travellersAdult,travellers
 
 })
 
-Cypress.Commands.add('confirmPassegersDetails',(firstName,lastName,passaportNumber,email,phone) => {
+Cypress.Commands.add('fillPassegersDetails',(firstName,lastName,passaportNumber,email,phone) => {
   cy.get('.contact-form-action > .row > :nth-child(1) > .form-floating > .form-control').type(firstName)
   cy.get('#cookie_stop').click()
   cy.get('.contact-form-action > .row > :nth-child(2) > .form-floating > .form-control').type(lastName)
@@ -39,6 +39,19 @@ Cypress.Commands.add('confirmPassegersDetails',(firstName,lastName,passaportNumb
   cy.get(':nth-child(4) > .form-floating > .form-control').type(phone)
   cy.get(':nth-child(1) > .card-body > :nth-child(1) > .col-md-4 > .form-floating > .form-control').type(firstName)
   cy.get(':nth-child(1) > .card-body > :nth-child(1) > .col-md-6 > .form-floating > .form-control').type(lastName)
+  cy.get('.col-md-12 > .form-floating > .form-control').type(passaportNumber)
+  cy.get('#agreechb').click()
+  cy.clickButton('Confirm Booking')
+})
+
+Cypress.Commands.add('confirmPassegersDetails',(firstName,lastName,passaportNumber,email,phone) => {
+  cy.get('.contact-form-action > .row > :nth-child(1) > .form-floating > .form-control').should('value', firstName)
+  cy.get('.contact-form-action > .row > :nth-child(2) > .form-floating > .form-control').should('value', lastName)
+  cy.get('.contact-form-action > .row > :nth-child(3) > .form-floating > .form-control').should('value', email)
+  cy.get(':nth-child(4) > .form-floating > .form-control').should('value', phone)
+  cy.get(':nth-child(1) > .card-body > :nth-child(1) > .col-md-4 > .form-floating > .form-control').type(firstName)
+  cy.get(':nth-child(1) > .card-body > :nth-child(1) > .col-md-6 > .form-floating > .form-control').type(lastName)
+  cy.get('#cookie_stop').click()
   cy.get('.col-md-12 > .form-floating > .form-control').type(passaportNumber)
   cy.get('#agreechb').click()
   cy.clickButton('Confirm Booking')
