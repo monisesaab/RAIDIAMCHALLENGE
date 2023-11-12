@@ -22,6 +22,29 @@ Cypress.Commands.add('searchFligths',(from, to, date, travellersAdult,travellers
 
 })
 
+Cypress.Commands.add('confirmPassegersDetails',(firstName,lastName,passaportNumber,email,phone) => {
+  cy.get('.contact-form-action > .row > :nth-child(1) > .form-floating > .form-control').type(firstName)
+  cy.get('#cookie_stop').click()
+  cy.get('.contact-form-action > .row > :nth-child(2) > .form-floating > .form-control').type(lastName)
+  cy.get('.contact-form-action > .row > :nth-child(3) > .form-floating > .form-control').type(email)
+  cy.get(':nth-child(4) > .form-floating > .form-control').type(phone)
+  cy.get(':nth-child(1) > .card-body > :nth-child(1) > .col-md-4 > .form-floating > .form-control').type(firstName)
+  cy.get(':nth-child(1) > .card-body > :nth-child(1) > .col-md-6 > .form-floating > .form-control').type(lastName)
+  cy.get('.col-md-12 > .form-floating > .form-control').type(passaportNumber)
+  cy.get('#agreechb').click()
+  cy.clickButton('Confirm Booking')
+})
+
+Cypress.Commands.add('checkBookingPaymentStatus',(status) => {
+  cy.get('.col-sm-8 > :nth-child(1) > :nth-child(1)').should('be.visible')  
+  cy.get('.col-sm-8 > :nth-child(1) > :nth-child(1)').should('contain', status);
+})
+
+Cypress.Commands.add('checkBookingStatus',(status) => {
+  cy.get('.col-sm-8 > :nth-child(1) > :nth-child(2)').should('be.visible')  
+  cy.get('.col-sm-8 > :nth-child(1) > :nth-child(2)').should('contain', status);
+})
+
 // ---- Basics actions
 
 // Cliking elements
