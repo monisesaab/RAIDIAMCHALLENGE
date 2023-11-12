@@ -45,6 +45,16 @@ Cypress.Commands.add('checkBookingStatus',(status) => {
   cy.get('.col-sm-8 > :nth-child(1) > :nth-child(2)').should('contain', status);
 })
 
+Cypress.Commands.add('checkTheFlightSearched',(from,to,date) => {
+  cy.get('.title__fetched-time').should('include.text', '\n\n' + from.toLowerCase() + ' \n\n\n' + to.toLowerCase() + ' \n' + date + '\n')
+})
+
+Cypress.Commands.add('checkTheFlightSelected',(from,to,type,airline) => {
+  cy.get('.fs-5 > .d-flex').should('include.text', from + '  ' + to)
+  cy.get('.mx-0 > :nth-child(2) > .col-md-6').should('include.text', type)
+  cy.get('.col-md-7').should('include.text', airline)
+})
+
 // ---- Basics actions
 
 // Cliking elements
