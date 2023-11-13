@@ -1,0 +1,17 @@
+{
+  "name": "backend-test",
+  "version": "1.0.0",
+  "main": "tests.js",
+  "scripts": {
+    "test": "tests.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "axios": "^1.6.1",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0"
+  }
+}
