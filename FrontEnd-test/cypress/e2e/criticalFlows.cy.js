@@ -39,6 +39,7 @@ describe('Flight Search and Booking', () => {
     cy.checkBookingStatus('pending');
   })
 })
+
 describe('Reservation Management', () => {
 
   beforeEach(() => {
@@ -61,5 +62,21 @@ describe('Reservation Management', () => {
     cy.searchMyBooking('20231112104234')
     cy.checkBookingStatusOnList('canceled')
   })
-  
+})
+
+describe('Payment Flow', () => {
+
+  beforeEach(() => {
+    cy.accessPHPtravelsFligth();
+    cy.login('monisesaab@gmail.com', 'Senha123')
+    cy.searchFligths('LHE', 'DXB', '15-11-2023', '1', '0', '0');
+    cy.clickButton('Select Flight');
+    cy.confirmPassegersDetails('Monise', 'Saab', '123456', 'monisesaab@gmail.com', '34993421609');
+  });
+
+  it('Booking pending payment', () => {
+    cy.accessMyNewBooking()
+    cy.checkPaymentStatusOnList('unpaid')
+  })
+
 })

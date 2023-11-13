@@ -70,6 +70,20 @@ Cypress.Commands.add('confirmPassegersDetails',(firstName,lastName,passaportNumb
   cy.clickButton('Confirm Booking')
 })
 
+
+Cypress.Commands.add('accessMyNewBooking',(getNumberBooking) => {
+  cy.get(':nth-child(5) > tbody > tr > :nth-child(2)').invoke('text').then((bookingNumber) => {
+    cy.clickGet('.fadeout > .logo')
+    cy.accessMyBookings()
+    cy.searchMyBooking(bookingNumber)
+  });
+  
+})
+
+
+
+// Check
+
 Cypress.Commands.add('checkBookingPaymentStatus',(status) => {
   cy.get('.col-sm-8 > :nth-child(1) > :nth-child(1)').should('contain', status);
 })
@@ -80,6 +94,10 @@ Cypress.Commands.add('checkBookingStatus',(status) => {
 
 Cypress.Commands.add('checkBookingStatusOnList',(status) => {
   cy.get('.odd > :nth-child(3)').should('contain', status);
+})
+
+Cypress.Commands.add('checkPaymentStatusOnList',(status) => {
+  cy.get('.odd > :nth-child(2)').should('contain', status);
 })
 
 Cypress.Commands.add('checkTheFlightSearched',(from,to,date) => {
