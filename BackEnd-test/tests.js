@@ -158,6 +158,7 @@ describe('Weather data for timestamp', () => {
         //       Indicates that too many requests were made in a short period.
         //       Consider checking and adjusting API rate limits or optimizing the number of requests.
 
+
     });
 });
 
@@ -203,7 +204,15 @@ describe('Daily Aggregation', () => {
             }
         });
 
-        // Add tests for 501 and 429 status codes as needed
+        //  501 - Internal Server Error
+        //       Indicates an internal server error, often caused by a server-side issue.
+        //       Developer intervention may be required.
+
+        //  429 - Too Many Requests
+        //       Indicates that too many requests were made in a short period.
+        //       Consider checking and adjusting API rate limits or optimizing the number of requests.
+
+
     });
 });
 
