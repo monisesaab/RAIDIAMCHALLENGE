@@ -161,6 +161,52 @@ describe('Weather data for timestamp', () => {
     });
 });
 
+describe('Daily Aggregation', () => {
+    it('should retrieve daily aggregation data successfully', async () => {
+        const response = await axios.get(`${apiBaseUrl}/day_summary?lat=52.2297&lon=21.0122&date=2023-11-14&tz=+03:00&appid=${apiKey}`);
+        expect(response.status).to.equal(200);
+
+        expect(response.data.temperature).to.have.property('min');
+        expect(response.data.temperature).to.have.property('max');
+        expect(response.data.temperature).to.have.property('afternoon');
+        expect(response.data.temperature).to.have.property('night');
+        expect(response.data.units).to.be.a('string');
+    });
+
+    describe('Status codes', () => {
+        it('should handle 200 status code', async () => {
+            const response = await axios.get(`${apiBaseUrl}/day_summary?lat=52.2297&lon=21.0122&date=2023-11-14&tz=+03:00&appid=${apiKey}`);
+            expect(response.status).to.equal(200);
+        });
+
+        it('should handle 400 status code error', async () => {
+            try {
+                await axios.get(`${apiBaseUrl}/day_summary?lat=invalid&lon=invalid&date=2023-11-14&tz=+03:00&appid=${apiKey}`);
+            } catch (error) {
+                expect(error.response.status).to.equal(400);
+            }
+        });
+
+        it('should handle 401 status code error', async () => {
+            try {
+                await axios.get(`${apiBaseUrl}/day_summary?lat=invalid&lon=invalid&date=2023-11-14&tz=+03:00&appid=invalid`);
+            } catch (error) {
+                expect(error.response.status).to.equal(401);
+            }
+        });
+
+        it('should handle 404 status code error', async () => {
+            try {
+                const response = await axios.get(`${apiBaseUrl}/day_summary?lat=522297&lon=100000000000000000000009&date=2023-11-14&tz=+03:00&appid=${apiKey}`);
+            } catch (error) {
+                expect(error.response.status).to.equal(404);
+            }
+        });
+
+        // Add tests for 501 and 429 status codes as needed
+    });
+});
+
 async function runAPI(lat, lon, api) {
     return await axios.get(`${apiBaseUrl}${api}?lat=${lat}&lon=${lon}&appid=${apiKey}`);
 }
